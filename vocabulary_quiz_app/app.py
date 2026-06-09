@@ -38,6 +38,9 @@ class VocabularyQuizApp:
         buttons.pack(pady=6)
         self.check_button = ttk.Button(buttons, text="채점", command=self.check_current)
         self.check_button.pack(side=tk.LEFT, padx=6)
+        
+        ttk.Button(buttons, text="힌트", command=self.show_hint).pack(side=tk.LEFT, padx=6)
+        
         ttk.Button(buttons, text="다음", command=self.next_word).pack(
             side=tk.LEFT, padx=6
         )
@@ -69,3 +72,8 @@ class VocabularyQuizApp:
             self.feedback_var.set(f"오답입니다. 정답: {self.current.meaning}")
         self.score_var.set(f"Score: {self.score}/{self.total}")
         self.check_button.state(["disabled"])
+
+    def show_hint(self) -> None:
+        if self.current:
+            hint_text = f"힌트: {self.current.meaning[0]} (총 {len(self.current.meaning)}글자)"
+            self.feedback_var.set(hint_text)
